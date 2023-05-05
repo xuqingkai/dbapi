@@ -1,6 +1,8 @@
 # dbapi
 php单文件，mysql数据库CRUD转API接口模式
 
+## 文件第一行可修改数据库信息，只支持pdo模式下mysql
+
 ## 请求格式：index.php/table_name/xxx/xxx
 
 ### 查询全部信息
