@@ -1,22 +1,25 @@
 <?php
-$pdo_server['default']=array('ip'=>'127.0.0.1','db'=>'cms_d6m_cn','user'=>'cms_d6m_cn','pwd'=>'cms_d6m_cn','prefix'=>'sea_');
+$pdo_db['default']=array('dsn'=>'mysql:host=127.0.0.1;dbname=cms_d6m_cn','user'=>'cms_d6m_cn','pwd'=>'cms_d6m_cn','prefix'=>'sea_');
+$pdo_db['sqlite']=array('dsn'=>'sqlite:./cms.sqlite3','prefix'=>'sea_');
 
-
-$prefix='sea_';
-$arg=explode('/',urldecode($_SERVER['PATH_INFO'])); 
+$path_info=$_SERVER['PATH_INFO'];
+if(strpos($path_info,'/index.php')!== false && substr($path_info,strlen($path_info)-10)=='/index.php'){
+    $path_info=substr($path_info,0,strlen($path_info)-10);
+}
+$arg=explode('/',urldecode($path_info)); 
 if($arg[1]){
     $table=$arg[1];
-    $server_key=array_keys($pdo_server)[0];
+    $db_key=array_keys($pdo_db)[0];
     if(strpos($table, '.')!==false){
-        $server_key=substr($table,0,strpos($table, '.'));
-        if(!array_key_exists($server_key,$pdo_server)){
+        $db_key=substr($table,0,strpos($table, '.'));
+        if(!array_key_exists($db_key,$pdo_db)){
             exit(json_encode(array('id'=>1,'code'=>'FAIL','message'=>'数据库key错误')));
         }
         $table=substr($table,strpos($table, '.')+1);
     }
-    $server=$pdo_server[$server_key];
-    $table=$server['prefix'].$table;
-    $pdo_connection = new PDO('mysql:host='.$server['ip'].';dbname='.$server['db'], $server['user'], $server['pwd']);
+    $db=$pdo_db[$db_key];
+    $table=$db['prefix'].$table;
+    $pdo_connection = new PDO($db['dsn'], $db['user'], $db['pwd']);
 
     $method=$_SERVER['REQUEST_METHOD'];
     $where=$arg[2];
@@ -30,6 +33,7 @@ if($arg[1]){
                     exit_json(pdo_query($sql));
                 }else{
                     $sql.=' WHERE `id`='.$id; 
+                    //exit($sql);
                     exit_json(pdo_find($sql));
                 }
             }else{
@@ -50,6 +54,7 @@ if($arg[1]){
                     //exit($sql);
                     exit_json(pdo_select($sql));
                 }else{
+                    
                     if($where){$sql.=' WHERE '.$where;}
                     exit_json(pdo_select($sql));
                 }
