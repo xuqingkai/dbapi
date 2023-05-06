@@ -1,7 +1,7 @@
 # dbapi
 php单文件，mysql数据库CRUD转API接口模式
 
-## 文件第一行可修改数据库信息，只支持pdo模式下mysql
+## 文件第一行可修改数据库信息，只支持pdo模式下mysql,sqlite
 
 ## 宝塔伪静态设置
 
