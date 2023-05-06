@@ -13,8 +13,10 @@ location / {
 }
 ```
 
-## 请求格式：index.php/table_name/xxx/xxx
-
+## 请求格式：
+- index.php/table_name/xxx/xxx
+- index.php/[server_key.]table_name/xxx/xxx
+- server_key指的是多个数据库配置的时候，每个数据库连接信息对应的key
 ### 查询全部信息
 GET: index.php/table_name
 
