@@ -1,5 +1,5 @@
 <?php
-$pdo_db['default']=array('dsn'=>'mysql:host=127.0.0.1;dbname=cms_d6m_cn','user'=>'cms_d6m_cn','pwd'=>'cms_d6m_cn','prefix'=>'sea_');
+$pdo_db['default']=array('dsn'=>'mysql:host=127.0.0.1;dbname=cms_d6m_cn;charset=utf8','user'=>'cms_d6m_cn','pwd'=>'cms_d6m_cn','prefix'=>'sea_');
 $pdo_db['sqlite']=array('dsn'=>'sqlite:./cms.sqlite3','prefix'=>'sea_');
 
 $path_info=$_SERVER['PATH_INFO'];
