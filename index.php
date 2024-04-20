@@ -130,7 +130,7 @@ function exit_json($data){
     }else{
         $data=array('id'=>0,'code'=>'SUCCESS','message'=>'成功','data'=>$data);
     }
-    exit(json_encode($data));
+    exit(json_encode($data, JSON_UNESCAPED_UNICODE));
 }
 
 ?>
