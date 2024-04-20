@@ -22,10 +22,10 @@ if($arg[1]){
     $pdo_connection = new PDO($db['dsn'], $db['user'], $db['pwd']);
 
     $method=$_SERVER['REQUEST_METHOD'];
-    $where=$arg[2];
+    $where=$arg[2] ?? '';
     if($method=='GET'){
         $sql='SELECT * FROM `'.$table.'`';
-        if(strlen($where)>0){
+        if($where && strlen($where)>0){
             if(is_numeric(substr($where,0,1))){
                 $id=intval($where);
                 if($id<0){
